@@ -1,4 +1,32 @@
 apply plugin: 'com.android.application'
+//apply tinker插件
+//apply plugin: 'com.tencent.tinker.patch'
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.0.1'
+    testCompile 'junit:junit:4.12'
+    //可选，用于生成application类
+    provided("com.tencent.tinker:tinker-android-anno:${TINKER_VERSION}") { changing = true }
+    //tinker的核心库
+    compile("com.tencent.tinker:tinker-android-lib:${TINKER_VERSION}") { changing = true }
+    compile 'com.android.support:multidex:1.0.1'
+}
+
+//def gitSha() {
+//    try {
+//        String gitRev = '1.7.7' //'git rev-parse --short HEAD'.execute(null, project.rootDir).text.trim()
+//        if (gitRev == null) {
+//            throw new GradleException("can't get git rev, you should add git to system path or just input test value, such as 'testTinkerId'")
+//        }
+//        return gitRev
+//    } catch (Exception e) {
+//        throw new GradleException("can't get git rev, you should add git to system path or just input test value, such as 'testTinkerId'")
+//    }
+//}
 
 android {
     compileSdkVersion 25
@@ -11,19 +39,35 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    //签名配置信息
+    signingConfigs {
+        //发布版本的签名配置
+        release {
+            try {
+                keyAlias 'ListenerGao'
+                keyPassword 'android'
+                storeFile file('./keystore/release.keystore')
+                storePassword 'android'
+            } catch (ex) {
+                throw new InvalidUserDataException(ex.toString())
+            }
+        }
+    }
+
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            debuggable true
+            minifyEnabled true
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 }
 
-dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    compile 'com.android.support:appcompat-v7:25.0.1'
-    testCompile 'junit:junit:4.12'
-}
