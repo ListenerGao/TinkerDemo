@@ -16,13 +16,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAllCaps="false"
-        android:text="Load Path" />
+        android:text="@string/load_path" />
 
     <Button
         android:id="@+id/btn_clear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAllCaps="false"
-        android:text="Clear Path"
+        android:text="@string/clear_path"
+        />
+
+    <Button
+        android:id="@+id/btn_toast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:text="@string/toast"
         />
 </LinearLayout>

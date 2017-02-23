@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 //apply tinker插件
-//apply plugin: 'com.tencent.tinker.patch'
+apply plugin: 'com.tencent.tinker.patch'
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
@@ -16,17 +16,35 @@ dependencies {
     compile 'com.android.support:multidex:1.0.1'
 }
 
-//def gitSha() {
-//    try {
-//        String gitRev = '1.7.7' //'git rev-parse --short HEAD'.execute(null, project.rootDir).text.trim()
-//        if (gitRev == null) {
-//            throw new GradleException("can't get git rev, you should add git to system path or just input test value, such as 'testTinkerId'")
-//        }
-//        return gitRev
-//    } catch (Exception e) {
-//        throw new GradleException("can't get git rev, you should add git to system path or just input test value, such as 'testTinkerId'")
-//    }
-//}
+tinkerPatch {
+    //有问题的apk的地址
+    oldApk = "F://app-debug.apk"
+    ignoreWarning = true
+    useSign = true
+    buildConfig {
+        applyMapping = null
+        applyResourceMapping = null
+        tinkerId = "1.0"
+    }
+    packageConfig {
+        configField("TINKER_ID", "1.0")
+    }
+    dex {
+        dexMode = "jar"
+        pattern = ["classes*.dex", "assets/secondary-dex-?.jar"]
+        loader = ["com.tencent.tinker.loader.*", "com.tinkertest.Application"]
+    }
+    lib {
+        pattern = ["lib/armeabi/*.so", "lib/arm64-v8a/*.so", "lib/armeabi-v7a/*.so", "lib/mips/*.so", "lib/mips64/*.so", "lib/x86/*.so", "lib/x86_64/*.so"]
+    }
+    res {
+        pattern = ["res/*", "assets/*", "resources.arsc", "AndroidManifest.xml"]
+        largeModSize = 100
+    }
+    sevenZip {
+        zipArtifact = "com.tencent.mm:SevenZip:1.1.10"
+    }
+}
 
 android {
     compileSdkVersion 25
@@ -38,6 +56,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+        multiDexKeepProguard file("keep_in_main_dex.txt")
     }
 
     //签名配置信息
@@ -71,4 +91,3 @@ android {
         }
     }
 }
-
