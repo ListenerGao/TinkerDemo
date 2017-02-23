@@ -45,10 +45,11 @@ android {
         //发布版本的签名配置
         release {
             try {
-                keyAlias 'ListenerGao'
-                keyPassword 'android'
-                storeFile file('./keystore/release.keystore')
-                storePassword 'android'
+                storeFile file("./keystore/release.keystore")
+                storePassword "android"
+                keyAlias "LIstenerGao"
+                keyPassword "android"
+
             } catch (ex) {
                 throw new InvalidUserDataException(ex.toString())
             }
