@@ -33,4 +33,12 @@
         android:textAllCaps="false"
         android:text="@string/toast"
         />
+
+    <Button
+        android:id="@+id/btn_show"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:text="@string/show_info"
+        />
 </LinearLayout>

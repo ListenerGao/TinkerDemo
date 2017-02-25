@@ -10,9 +10,9 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.0.1'
     testCompile 'junit:junit:4.12'
     //可选，用于生成application类
-    provided("com.tencent.tinker:tinker-android-anno:${TINKER_VERSION}") { changing = true }
+    provided("com.tencent.tinker:tinker-android-anno:${TINKER_VERSION}")
     //tinker的核心库
-    compile("com.tencent.tinker:tinker-android-lib:${TINKER_VERSION}") { changing = true }
+    compile("com.tencent.tinker:tinker-android-lib:${TINKER_VERSION}")
     compile 'com.android.support:multidex:1.0.1'
 }
 
@@ -57,7 +57,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
-        multiDexKeepProguard file("keep_in_main_dex.txt")
+//        multiDexKeepProguard file("keep_in_main_dex.txt")
     }
 
     //签名配置信息

@@ -3,4 +3,5 @@
     <string name="load_path">Load Path</string>
     <string name="clear_path">Clear Path</string>
     <string name="toast">Toast</string>
+    <string name="show_info">show info</string>
 </resources>
