@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.btn_toast:
-                Toast.makeText(getApplicationContext(),"原来的内容",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"使用Tinker修改后的内容",Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.btn_show:
