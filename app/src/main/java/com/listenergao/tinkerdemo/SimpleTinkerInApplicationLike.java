@@ -27,14 +27,17 @@ public class SimpleTinkerInApplicationLike extends DefaultApplicationLike {
 
     private static final String TAG = "TinkerInApplicationLike";
 
-    public SimpleTinkerInApplicationLike(Application application, int tinkerFlags, boolean tinkerLoadVerifyFlag, long applicationStartElapsedTime, long applicationStartMillisTime, Intent tinkerResultIntent) {
-        super(application, tinkerFlags, tinkerLoadVerifyFlag, applicationStartElapsedTime, applicationStartMillisTime, tinkerResultIntent);
+    public SimpleTinkerInApplicationLike(Application application, int tinkerFlags, boolean tinkerLoadVerifyFlag,
+                                         long applicationStartElapsedTime, long applicationStartMillisTime,
+                                         Intent tinkerResultIntent) {
+        super(application, tinkerFlags, tinkerLoadVerifyFlag,
+                applicationStartElapsedTime,
+                applicationStartMillisTime, tinkerResultIntent);
     }
 
     @Override
     public void onBaseContextAttached(Context base) {
         super.onBaseContextAttached(base);
-        Log.d(TAG, "SimpleTinkerInApplicationLike的onBaseContextAttached方法执行了");
         MultiDex.install(base);
         //初始化Tinker
         TinkerInstaller.install(this);
